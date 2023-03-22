@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.projetoagenda.agenda.entitys.pessoa.Pessoa;
+
 @Entity
 public class Endereco implements Serializable {
 
@@ -29,6 +32,13 @@ public class Endereco implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
+	
+	@ManyToOne
+	@JoinColumn(name="pessoa_id")
+	//@JsonBackReference
+	@JsonIgnore
+	private Pessoa pessoa;
+	
 	
 	public Endereco(){}
 	
@@ -84,6 +94,20 @@ public class Endereco implements Serializable {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+
+
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+
+
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 

@@ -1,6 +1,8 @@
 package com.projetoagenda.agenda.entitys.pessoa;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,6 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+
+import com.projetoagenda.agenda.entity.Endereco;
 
 
 @Entity
@@ -25,6 +30,8 @@ public abstract class Pessoa {
 	private Date  data_nasc;
 	private String telefone;
 	
+	@OneToMany(mappedBy = "pessoa")
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	public Pessoa() {
 		super();
@@ -96,6 +103,14 @@ public abstract class Pessoa {
 		return Objects.hash(id);
 	}
 
+
+	
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
