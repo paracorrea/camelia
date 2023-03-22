@@ -7,11 +7,20 @@ import javax.persistence.Entity;
 public class Profissional extends Pessoa {
 	
 	
+	private String cpf;
+		  
+	  
+
+	public Profissional() {
+		super();
+	}
 	
-	 private String cpf;
-	  
-	  
-	  
+	
+	
+	public Profissional(String cpf) {
+		super();
+		this.cpf = cpf;
+	}
 
 	public String getCpf() {
 		return cpf;
