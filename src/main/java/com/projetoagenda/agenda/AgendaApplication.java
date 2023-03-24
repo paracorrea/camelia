@@ -1,14 +1,20 @@
 package com.projetoagenda.agenda;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
+import com.projetoagenda.agenda.entity.Agendamento;
 import com.projetoagenda.agenda.entity.Cidade;
 import com.projetoagenda.agenda.entity.Endereco;
 import com.projetoagenda.agenda.entity.Servico;
 import com.projetoagenda.agenda.entity.UF;
 import com.projetoagenda.agenda.entitys.pessoa.Cliente;
 import com.projetoagenda.agenda.entitys.pessoa.Profissional;
+import com.projetoagenda.agenda.repositories.AgendamentoRepository;
 import com.projetoagenda.agenda.repositories.CidadeRepositoty;
 import com.projetoagenda.agenda.repositories.ClienteRepository;
 import com.projetoagenda.agenda.repositories.EnderecoRepository;
@@ -39,7 +45,8 @@ public class AgendaApplication implements CommandLineRunner {
 	private CidadeRepositoty cidadeRepo;
 	@Autowired
 	private ServicoRepository servicoRepo;
-	
+	@Autowired
+	private AgendamentoRepository agendaRepo;;
 	
 	
 	@Override
@@ -135,9 +142,29 @@ public class AgendaApplication implements CommandLineRunner {
 		Servico serv1 = new Servico();
 		serv1.setId(null);
 		serv1.setNomeDoServico("Corte Cabelo");
+		serv1.setValor(45.90);
 		serv1.setPessoa(Arrays.asList(prof1));
 		servicoRepo.save(serv1);
 				
+		Servico serv2 = new Servico();
+		serv2.setId(null);
+		serv2.setNomeDoServico("Hidratação");
+		serv2.setValor(25.10);
+		serv2.setPessoa(Arrays.asList(prof1));
+		servicoRepo.save(serv2);
+		
+	
+		
+		 LocalDate date   = LocalDate.of(2023, 12, 31);
+		 LocalTime time = LocalTime.of(8, 30, 45);
+		Agendamento agenda1 = new Agendamento();
+		agenda1.setData(date,time);
+		agenda1.setId(null);
+		agenda1.setServicos(serv1);
+		agenda1.setPessoa(prof1);
+		
 	}
+	
+	
 
 }
