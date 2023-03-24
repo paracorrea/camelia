@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import com.projetoagenda.agenda.entity.Cidade;
 import com.projetoagenda.agenda.entity.Endereco;
+import com.projetoagenda.agenda.entity.Servico;
 import com.projetoagenda.agenda.entity.UF;
 import com.projetoagenda.agenda.entitys.pessoa.Cliente;
 import com.projetoagenda.agenda.entitys.pessoa.Profissional;
@@ -12,6 +13,7 @@ import com.projetoagenda.agenda.repositories.CidadeRepositoty;
 import com.projetoagenda.agenda.repositories.ClienteRepository;
 import com.projetoagenda.agenda.repositories.EnderecoRepository;
 import com.projetoagenda.agenda.repositories.ProfissionalRepository;
+import com.projetoagenda.agenda.repositories.ServicoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -35,7 +37,8 @@ public class AgendaApplication implements CommandLineRunner {
 	private EnderecoRepository enderRepo;
 	@Autowired
 	private CidadeRepositoty cidadeRepo;
-	
+	@Autowired
+	private ServicoRepository servicoRepo;
 	
 	
 	
@@ -48,7 +51,13 @@ public class AgendaApplication implements CommandLineRunner {
 		cida1.setId(null);
 		cida1.setNome("Campinas");
 		cida1.setUf(UF.SP);
-		cidadeRepo.save(cida1);
+		
+		Cidade cida2 = new Cidade();
+		cida2.setId(null);
+		cida2.setNome("Hortolandia");
+		cida2.setUf(UF.SP);
+		
+		cidadeRepo.saveAll(Arrays.asList(cida1, cida2));
 		
 		Endereco end1 = new Endereco();
 		end1.setCidade(cida1);
@@ -58,6 +67,25 @@ public class AgendaApplication implements CommandLineRunner {
 		end1.setBairro("Bom Jesus");
 		end1.setCidade(cida1);
 		
+		
+		Endereco end2 = new Endereco();
+		end2.setCidade(cida1);
+		end2.setLogradouro("Rua Transeunte Moreno");
+		end2.setNumero("1234");
+		end2.setComplemento(null);
+		end2.setBairro("Satira Josun");
+		end2.setCidade(cida2);
+		
+		Endereco end3 = new Endereco();
+		end3.setCidade(cida1);
+		end3.setLogradouro("Rua Thereza Branquela");
+		end3.setNumero("343");
+		end3.setComplemento(null);
+		end3.setBairro("Sapo Boi");
+		end3.setCidade(cida1);
+		
+		
+		enderRepo.saveAll(Arrays.asList(end1,end2, end3));
 	
 		
 		
@@ -69,8 +97,12 @@ public class AgendaApplication implements CommandLineRunner {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		cli1.setData_nasc(sdf.parse("03/04/1968"));
 		cli1.setTelefone("19991021215");
+		
+		cli1.getEnderecos().addAll(Arrays.asList(end2));
+	
+		
 		end1.setPessoa(cli1);
-		cli1.getEnderecos().addAll(Arrays.asList(end1));
+		
 		
 		Cliente cli2 = new Cliente();
 		cli2.setNome("Pedro Augusto");
@@ -82,13 +114,9 @@ public class AgendaApplication implements CommandLineRunner {
 		end1.setPessoa(cli2);
 		cli2.getEnderecos().addAll(Arrays.asList(end1));
 		
-		
-	
-	
-		
-		
+				
 		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
-		enderRepo.save(end1);
+		
 		
 		Profissional prof1 = new Profissional();
 		prof1.setId(null);
@@ -98,11 +126,18 @@ public class AgendaApplication implements CommandLineRunner {
 		//SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 		prof1.setData_nasc( sdf.parse("07/01/1995"));
 		prof1.setTelefone("989898989");
+		prof1.getEnderecos().addAll(Arrays.asList(end3));
+		
+		
 		profissionalRepo.save(prof1);
 		
 		
-		
-		
+		Servico serv1 = new Servico();
+		serv1.setId(null);
+		serv1.setNomeDoServico("Corte Cabelo");
+		serv1.setPessoa(Arrays.asList(prof1));
+		servicoRepo.save(serv1);
+				
 	}
 
 }

@@ -10,12 +10,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.projetoagenda.agenda.entity.Endereco;
+import com.projetoagenda.agenda.entity.Servico;
 
 
 @Entity
+@Table(name="pessoas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // @Inheritance define a estratégia
 public abstract class Pessoa {
 	
@@ -32,6 +36,13 @@ public abstract class Pessoa {
 	
 	@OneToMany(mappedBy = "pessoa")
 	private List<Endereco> enderecos = new ArrayList<>();
+	
+	
+	
+	@ManyToMany(mappedBy = "pessoas")
+	private List<Servico> servicos;
+	
+	
 	
 	public Pessoa() {
 		super();
@@ -105,6 +116,16 @@ public abstract class Pessoa {
 
 
 	
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
+	}
+
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}

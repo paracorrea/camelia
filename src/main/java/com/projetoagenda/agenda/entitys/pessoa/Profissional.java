@@ -9,7 +9,7 @@ public class Profissional extends Pessoa {
 	
 	private String cpf;
 		  
-	  
+
 
 	public Profissional() {
 		super();
