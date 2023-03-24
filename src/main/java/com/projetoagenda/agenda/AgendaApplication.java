@@ -2,9 +2,7 @@ package com.projetoagenda.agenda;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import com.projetoagenda.agenda.entity.Agendamento;
@@ -160,9 +158,9 @@ public class AgendaApplication implements CommandLineRunner {
 		Agendamento agenda1 = new Agendamento();
 		agenda1.setData(date,time);
 		agenda1.setId(null);
-		agenda1.setServicos(serv1);
+		//agenda1.setServicos(serv1);
 		agenda1.setPessoa(prof1);
-		
+		agendaRepo.save(agenda1);
 	}
 	
 	

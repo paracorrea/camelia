@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.projetoagenda.agenda.entitys.pessoa.Pessoa;
-import com.projetoagenda.agenda.entitys.pessoa.Profissional;
+
 
 @Entity
 public class Agendamento  implements Serializable {
@@ -28,25 +28,16 @@ public class Agendamento  implements Serializable {
 	
 	 @ManyToMany
 	    @JoinTable(
-	        name = "agendamento_funcionario_servico",
+	        name = "agendamento_pessoa_servico",
 	        joinColumns = @JoinColumn(name = "id_agendamento"),
 	        inverseJoinColumns = {
-	            @JoinColumn(name = "id_funcionario"),
-	            @JoinColumn(name = "id_servico")
+	            @JoinColumn(name = "id_pessoa"),
+	            //@JoinColumn(name = "id_servico")
 	        }
 	    )
 	    private List<Pessoa> pessoa;
    
-	   @ManyToMany
-	    @JoinTable(
-	        name = "agendamento_servico_funcionario",
-	        joinColumns = @JoinColumn(name = "id_agendamento"),
-	        inverseJoinColumns = {
-	            @JoinColumn(name = "id_servico"),
-	            @JoinColumn(name = "id_funcionario")
-	        }
-	    )
-	    private List<Servico> servicos;
+	   // private List<Servico> servicos;
 
 	    // Construtor e getters/setters
 
@@ -84,13 +75,6 @@ public class Agendamento  implements Serializable {
 
 	
 
-		public List<Servico> getServicos() {
-			return servicos;
-		}
-
-		public void setServicos(List<Servico> servicos) {
-			this.servicos = servicos;
-		}
 
 		public LocalDateTime getData() {
 			return data;
@@ -106,7 +90,7 @@ public class Agendamento  implements Serializable {
 			
 		}
 
-		public void setPessoa(Profissional prof1) {
+		public void setPessoa(Pessoa prof1) {
 			// TODO Auto-generated method stub
 			
 		}

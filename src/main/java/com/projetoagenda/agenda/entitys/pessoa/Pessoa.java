@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.projetoagenda.agenda.entity.Agendamento;
 import com.projetoagenda.agenda.entity.Endereco;
 import com.projetoagenda.agenda.entity.Servico;
 
@@ -43,6 +44,8 @@ public abstract class Pessoa {
 	private List<Servico> servicos;
 	
 	
+	@ManyToMany(mappedBy = "agendamento")
+	private List<Agendamento> agendamento;
 	
 	public Pessoa() {
 		super();
@@ -132,6 +135,19 @@ public abstract class Pessoa {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+	
+	
+	
+
+	public List<Agendamento> getAgendamento() {
+		return agendamento;
+	}
+
+
+	public void setAgendamento(List<Agendamento> agendamento) {
+		this.agendamento = agendamento;
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {
