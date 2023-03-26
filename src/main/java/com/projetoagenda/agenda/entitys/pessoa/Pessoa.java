@@ -14,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.projetoagenda.agenda.entity.Agendamento;
 import com.projetoagenda.agenda.entity.Endereco;
 import com.projetoagenda.agenda.entity.Servico;
 
@@ -35,7 +34,7 @@ public abstract class Pessoa {
 	private Date  data_nasc;
 	private String telefone;
 	
-	@OneToMany(mappedBy = "pessoa")
+	@OneToMany(mappedBy = "pessoas")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	
@@ -44,8 +43,7 @@ public abstract class Pessoa {
 	private List<Servico> servicos;
 	
 	
-	@ManyToMany(mappedBy = "agendamento")
-	private List<Agendamento> agendamento;
+	
 	
 	public Pessoa() {
 		super();
@@ -139,14 +137,6 @@ public abstract class Pessoa {
 	
 	
 
-	public List<Agendamento> getAgendamento() {
-		return agendamento;
-	}
-
-
-	public void setAgendamento(List<Agendamento> agendamento) {
-		this.agendamento = agendamento;
-	}
 
 
 	@Override

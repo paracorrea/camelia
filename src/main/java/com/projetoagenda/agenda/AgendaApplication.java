@@ -159,7 +159,7 @@ public class AgendaApplication implements CommandLineRunner {
 		agenda1.setData(date,time);
 		agenda1.setId(null);
 		//agenda1.setServicos(serv1);
-		agenda1.setPessoa(prof1);
+	
 		agendaRepo.save(agenda1);
 	}
 	
