@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -29,12 +27,8 @@ public class Servico implements Serializable{
 	private String nomeDoServico;
 	private Double valor;
 	
-	@ManyToMany
-	@JoinTable(name = "SERVICO_PROFISSIONAL",
-			joinColumns = @JoinColumn(name ="servico_id"),
-			inverseJoinColumns = @JoinColumn(name ="pessoa_id")
-		)
-		private List<Pessoa> pessoas;
+	@ManyToMany(mappedBy="servicos")
+    private List<Pessoa> pessoas;
 
 	
 	

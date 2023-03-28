@@ -1,6 +1,5 @@
 package com.projetoagenda.agenda.entitys.pessoa;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -10,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.projetoagenda.agenda.entity.Endereco;
@@ -34,13 +35,16 @@ public abstract class Pessoa {
 	private Date  data_nasc;
 	private String telefone;
 	
-	@OneToMany(mappedBy = "pessoa")
-	private List<Endereco> enderecos = new ArrayList<>();
+	@OneToOne(mappedBy = "pessoa")
+	private Endereco enderecos;
 	
 	
 	
-	@ManyToMany(mappedBy = "pessoas")
-	private List<Servico> servicos;
+    @ManyToMany
+    @JoinTable(name = "servico_profissional",  joinColumns = {@JoinColumn(name = "servico_id")},
+        inverseJoinColumns = {@JoinColumn(name = "pessoa_id") }) 
+
+private List<Servico> servicos;
 	
 	
 	
@@ -109,13 +113,6 @@ public abstract class Pessoa {
 	}
 
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-
-	
 	public List<Servico> getServicos() {
 		return servicos;
 	}
@@ -126,10 +123,20 @@ public abstract class Pessoa {
 	}
 
 
-	public List<Endereco> getEnderecos() {
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	
+
+
+
+	public Endereco getEnderecos() {
 		return enderecos;
 	}
-	public void setEnderecos(List<Endereco> enderecos) {
+	public void setEnderecos(Endereco enderecos) {
 		this.enderecos = enderecos;
 	}
 
